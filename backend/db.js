@@ -6,7 +6,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-const userSceham = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   firstName: {
     type: string,
     required: true,
@@ -30,8 +30,12 @@ const userSceham = new mongoose.Schema({
   password: {
     type: string,
     required: true,
-    minlength: 6,
+    minLength: 6,
   },
 });
 
-module.exports = mongoose.model("User", userSceham);
+const User = mongoose.model("User", userSchema);
+
+module.exports = {
+  User,
+};
