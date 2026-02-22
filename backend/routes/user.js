@@ -22,7 +22,7 @@ router.post("/signup", async (req, res) => {
     });
   }
 
-  const user = User.findOne({
+  const user = await User.findOne({
     username: body.username,
   });
 
