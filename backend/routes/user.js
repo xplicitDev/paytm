@@ -26,7 +26,7 @@ router.post("/signup", async (req, res) => {
     username: body.username,
   });
 
-  if (user._id) {
+  if (user) {
     return res.json({
       message: "Incorrect Inputs / Email already taken",
     });
@@ -43,6 +43,31 @@ router.post("/signup", async (req, res) => {
     message: "User created Successfully.",
     token: token,
   });
+});
+
+const signinSchema = zod.object({
+  username: zod.string(),
+  password: zod.string(),
+});
+
+router.post("/signin", async (req, res) => {
+  const body = req.body;
+  const { success } = signinSchema.safeParse(req.body);
+  if (!success) {
+    return res.status(400).json({
+      message: "Invalid Inputs",
+    });
+  }
+
+  const user = await User.findOne({
+    username: body.username,
+  });
+
+  if (!user) {
+    return res.status(400).json({
+      message: "User does not exist.",
+    });
+  }
 });
 
 module.exports = router;
