@@ -9,4 +9,4 @@ const app = express();
 
 app.use("/api/v1", mainRouter);
 
-app.listen();
+app.listen(3000);
